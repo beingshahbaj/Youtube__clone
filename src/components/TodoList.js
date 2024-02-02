@@ -9,35 +9,43 @@ import { addTodo, deleteTodo, editTodo } from "../redux/Action/TodoAction"
 
 const Todo = () => {
   const [todo, setTodo] = useState("");
+  const [Update , setUpdate] = useState ("")
   const [placeholder, setPlaceholder] = useState("Add todo");
   const [color, setcolor] = useState("black");
   
   const todoList = useSelector((state) => state.todos);
 
-  const inputStyle = {
-    "::placeholder": {
-      color: color,
-    },
-  };
+ 
+  console.log(todoList)
 
   const dispatch = useDispatch();
   function handleSubmit(e) {
     e.preventDefault();
-    if (todo.length === 0) {
-      setPlaceholder("add some text");
-      setcolor("Red")
-      return;
+
+
+    if (Update) {
+      dispatch(editTodo(Update, todo))
+      setTodo("");
+      setUpdate("");
+      
+
+    } else {
+      if (todo.length === 0) {
+        setPlaceholder("add some text");
+        setcolor("Red");
+        return;
+      }
+      let obj = {
+        id: crypto.randomUUID(),
+        todo: todo,
+      };
+
+      dispatch(addTodo(obj));
+      setTodo("");
+      setPlaceholder("Add todo");
+      setcolor("black");
     }
-    let obj = {
-      id: crypto.randomUUID(),
-      todo: todo,
-
-    };
-
-    dispatch(addTodo(obj));
-    setTodo("");
-    setPlaceholder("Add todo");
-     setcolor("black");
+    
   }
 
   return (
@@ -48,14 +56,14 @@ const Todo = () => {
       >
         <input
           className=" px-5 w-[75%]"
-          style={inputStyle}
+          
           type="text"
           placeholder={placeholder}
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
         />
         <button className=" bg-slate-600 w-[20%]" type="submit  ">
-          Add
+        {Update? "update todo" : "add todo"}
         </button>
       </form>
 
@@ -75,7 +83,11 @@ const Todo = () => {
                 </button>
                 <button
                   className=" bg-slate-600 w-fit p-2 r "
-                  onClick={() => dispatch(editTodo(todo.id))}
+                  onClick={() => 
+                  
+                    {setUpdate(todo.id)
+                    setTodo(todo.todo)}
+                  }
                 >
                   edit todo
                 </button>

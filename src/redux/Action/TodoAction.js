@@ -14,9 +14,9 @@ export const deleteTodo = (id) => {
   };
 };
 
-export const editTodo = (id ,update) => {
+export const editTodo = (update , todo) => {
   return {
     type: EDIT_TODO,
-    payload:{id , ...update}
+    payload:{update:update , todo:todo}
   };
 };
