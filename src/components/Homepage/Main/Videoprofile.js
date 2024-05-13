@@ -81,13 +81,13 @@ const VideoProfile = ({ data }) => {
               <p className="text-sm text-gray-400 ">{formattedPublishDate}</p>
             </div>
           </div>
-          <Dropdown menu={{ items }} trigger={["click"]}>
+          {/* <Dropdown menu={{ items }} trigger={["click"]}>
             <a className="h-fit" onClick={(e) => e.preventDefault()}>
               <div className="flex text-xs items-center p-1 h-fit hover:bg-neutral-900  rounded-full  cursor-pointer">
                 <MoreVert />
               </div>
             </a>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </div>
     </div>
